@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Input from "./Input";
+import Select from "./Select";
 const Form = ({ setExpenses }) => {
   const [expense, setExpense] = useState({
     title: "",
@@ -65,55 +67,38 @@ const Form = ({ setExpenses }) => {
     <div>
       <div className="container border">
         <form className="form" onSubmit={handleForm}>
-          <div className="input my-2">
-            <label htmlFor="" className="d-block">
-              Title
-            </label>
-            <input
-              type="text"
-              className="w-100"
-              value={expense.title}
-              onChange={handleChange}
-              name="title"
-            />
-            <p className="text-danger">{errors.title}</p>
-          </div>
-          <div className="input my-2">
-            <label htmlFor="" className="d-block">
-              Category
-            </label>
-            <select
-              onChange={handleChange}
-              id="category"
-              className="w-100 my-2 py-1"
-              name="category"
-              value={expense.category}
-            >
-              <option value="" hidden>
-                Select Category
-              </option>
-              <option value="Medicine">Medicine</option>
-              <option value="Education">Education</option>
-              <option value="Business">Business</option>
-              <option value="Clothes">Clothes</option>
-              <option value="Grocery">Grocery</option>
-              <option value="Bills">Bills</option>
-            </select>
-            <p className="text-danger">{errors.category}</p>
-          </div>
-          <div className="input my-2">
-            <label htmlFor="" className="d-block">
-              Amount
-            </label>
-            <input
-              type="text"
-              className="w-100"
-              name="amount"
-              value={expense.amount}
-              onChange={handleChange}
-            />
-            <p className="text-danger">{errors.amount}</p>
-          </div>
+          <Input
+            label="Title"
+            id="title"
+            name="title"
+            value={expense.title}
+            onChange={handleChange}
+            error={errors.title}
+          />
+          <Select
+            label="Category"
+            id="category"
+            name="category"
+            value={expense.category}
+            onChange={handleChange}
+            error={errors.category}
+            options={[
+              "Grocery",
+              "Clothes",
+              "Education",
+              "Business",
+              "Bills",
+              "Medicine",
+            ]}
+          />
+          <Input
+            label="Amount"
+            id="amount"
+            name="amount"
+            value={expense.amount}
+            onChange={handleChange}
+            error={errors.amount}
+          />
           <button className="btn btn-primary w-100 border-0 py-2 my-3">
             Add
           </button>

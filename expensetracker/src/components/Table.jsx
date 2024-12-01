@@ -8,7 +8,6 @@ const Table = ({ expenses }) => {
         <table className="table table-bordered table-hover">
           <thead>
             <tr>
-              <th>#</th>
               <th>Title</th>
               <th>
                 <select className="w-100 border-0 py-1" id="">
@@ -33,7 +32,6 @@ const Table = ({ expenses }) => {
           <tbody>
             {expenses.map(({ id, title, category, amount }) => (
               <tr key={id}>
-                <td>{1}</td>
                 <td>{title}</td>
                 <td>{category}</td>
                 <td>Rs {amount}</td>
@@ -41,7 +39,6 @@ const Table = ({ expenses }) => {
             ))}
             <tr>
               <th>Total</th>
-              <th></th>
               <th></th>
               <th>Rs 8100</th>
             </tr>
