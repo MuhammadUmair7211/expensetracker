@@ -7,6 +7,7 @@ const Form = ({ setExpenses }) => {
     category: "",
     amount: "",
   });
+
   const handleForm = (e) => {
     e.preventDefault();
     const validateExpense = validate(expense);

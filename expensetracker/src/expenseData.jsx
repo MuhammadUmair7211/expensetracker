@@ -13,20 +13,14 @@ export default [
   },
   {
     id: crypto.randomUUID(),
-    title: "Vegetables",
-    category: "Grocery",
-    amount: 100,
-  },
-  {
-    id: crypto.randomUUID(),
     title: "Electricity",
     category: "Bills",
     amount: 40,
   },
   {
     id: crypto.randomUUID(),
-    title: "Medicine",
-    category: "Paracetamol",
+    title: "Paracetamol",
+    category: "Medicine",
     amount: 40,
   },
 ];

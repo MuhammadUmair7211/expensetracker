@@ -1,7 +1,16 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState } from "react";
 
 const Table = ({ expenses }) => {
+  const [category, setCategory] = useState("");
+  const filteredData = expenses.filter((expense) => {
+    return expense.category.includes(category);
+  });
+
+  const total = filteredData.reduce(
+    (accumulator, current) => accumulator + current.amount,
+    0
+  );
   return (
     <div>
       <div className="container p-0">
@@ -10,14 +19,17 @@ const Table = ({ expenses }) => {
             <tr>
               <th>Title</th>
               <th>
-                <select className="w-100 border-0 py-1" id="">
+                <select
+                  className="w-100 border-0 py-1"
+                  onChange={(e) => setCategory(e.target.value)}
+                >
                   <option value="">All Categories</option>
-                  <option value="">Medicine</option>
-                  <option value="">Education</option>
-                  <option value="">Business</option>
-                  <option value="">Clothes</option>
-                  <option value="">Grocery</option>
-                  <option value="">Bills</option>
+                  <option value="Medicine">Medicine</option>
+                  <option value="Education">Education</option>
+                  <option value="Business">Business</option>
+                  <option value="Clothes">Clothes</option>
+                  <option value="Grocery">Grocery</option>
+                  <option value="Bills">Bills</option>
                 </select>
               </th>
               <th className="d-flex align-items-center">
@@ -30,7 +42,7 @@ const Table = ({ expenses }) => {
             </tr>
           </thead>
           <tbody>
-            {expenses.map(({ id, title, category, amount }) => (
+            {filteredData.map(({ id, title, category, amount }) => (
               <tr key={id}>
                 <td>{title}</td>
                 <td>{category}</td>
@@ -40,7 +52,7 @@ const Table = ({ expenses }) => {
             <tr>
               <th>Total</th>
               <th></th>
-              <th>Rs 8100</th>
+              <th>Rs {total}</th>
             </tr>
           </tbody>
         </table>
