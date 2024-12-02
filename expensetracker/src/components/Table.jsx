@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
+import ContextMenu from "./ContextMenu";
 
-const Table = ({ expenses }) => {
+const Table = ({ expenses, setExpenses }) => {
   const [category, setCategory] = useState("");
   const filteredData = expenses.filter((expense) => {
     return expense.category.includes(category);
@@ -11,10 +12,24 @@ const Table = ({ expenses }) => {
     (accumulator, current) => accumulator + current.amount,
     0
   );
+
+  const [rowId, setRowId] = useState("");
+  const [menuPosition, setMenuPosition] = useState({});
   return (
     <div>
+      <ContextMenu
+        menuPosition={menuPosition}
+        setMenuPosition={setMenuPosition}
+        setExpenses={setExpenses}
+        rowId={rowId}
+      />
       <div className="container p-0">
-        <table className="table table-bordered table-hover">
+        <table
+          className="table table-bordered table-hover"
+          onClick={() => {
+            setMenuPosition({});
+          }}
+        >
           <thead>
             <tr>
               <th>Title</th>
@@ -43,7 +58,17 @@ const Table = ({ expenses }) => {
           </thead>
           <tbody>
             {filteredData.map(({ id, title, category, amount }) => (
-              <tr key={id}>
+              <tr
+                key={id}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  setMenuPosition({
+                    left: e.clientX + 10,
+                    top: e.clientY + 10,
+                  });
+                  setRowId(id);
+                }}
+              >
                 <td>{title}</td>
                 <td>{category}</td>
                 <td>Rs {amount}</td>

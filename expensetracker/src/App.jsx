@@ -14,7 +14,7 @@ function App() {
             <Form setExpenses={setExpenses} />
           </div>
           <div className="col-md-6 col-sm-12">
-            <Table expenses={expenses} />
+            <Table expenses={expenses} setExpenses={setExpenses} />
           </div>
         </div>
       </div>

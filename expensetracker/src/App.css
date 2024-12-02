@@ -1,0 +1,10 @@
+.context-menu {
+    position: absolute;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    /* display: none; */
+}
+
+.context-menu div:hover {
+    background-color: #ddd;
+}
