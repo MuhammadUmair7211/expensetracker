@@ -9,10 +9,12 @@ const Table = ({ expenses, setExpenses }) => {
   });
 
   const total = filteredData.reduce(
-    (accumulator, current) => accumulator + current.amount,
+    (accumulator, current) =>
+      (accumulator = accumulator + parseInt(current.amount)),
     0
   );
 
+  const [sortCallback, setSortCallback] = useState(() => () => {});
   const [rowId, setRowId] = useState("");
   const [menuPosition, setMenuPosition] = useState({});
   return (
@@ -25,7 +27,7 @@ const Table = ({ expenses, setExpenses }) => {
       />
       <div className="container p-0">
         <table
-          className="table table-bordered table-hover"
+          className="table table-hover table-bordered"
           onClick={() => {
             setMenuPosition({});
           }}
@@ -47,36 +49,55 @@ const Table = ({ expenses, setExpenses }) => {
                   <option value="Bills">Bills</option>
                 </select>
               </th>
-              <th className="d-flex align-items-center">
-                <div className="name">Amount</div>
-                <div className="icon m-auto">
-                  <i className="fa-solid fa-arrow-up" />
-                  <i className="fa-solid fa-arrow-down" />
+              <th>
+                <div className="d-flex align-items-center justify-content-between">
+                  <span>Amount</span>
+                  <div className="icon">
+                    <i
+                      className="fa-solid fa-arrow-up me-2"
+                      onClick={() => {
+                        setSortCallback(() => (a, b) => a.amount - b.amount);
+                      }}
+                    />
+                    <i
+                      className="fa-solid fa-arrow-down"
+                      onClick={() => {
+                        setSortCallback(() => (a, b) => b.amount - a.amount);
+                      }}
+                    />
+                  </div>
                 </div>
               </th>
             </tr>
           </thead>
           <tbody>
-            {filteredData.map(({ id, title, category, amount }) => (
-              <tr
-                key={id}
-                onContextMenu={(e) => {
-                  e.preventDefault();
-                  setMenuPosition({
-                    left: e.clientX + 10,
-                    top: e.clientY + 10,
-                  });
-                  setRowId(id);
-                }}
-              >
-                <td>{title}</td>
-                <td>{category}</td>
-                <td>Rs {amount}</td>
-              </tr>
-            ))}
+            {filteredData
+              .sort(sortCallback)
+              .map(({ id, title, category, amount }) => (
+                <tr
+                  key={id}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    setMenuPosition({
+                      left: e.clientX + 10,
+                      top: e.clientY + 10,
+                    });
+                    setRowId(id);
+                  }}
+                >
+                  <td>{title}</td>
+                  <td>{category}</td>
+                  <td>Rs {amount}</td>
+                </tr>
+              ))}
             <tr>
               <th>Total</th>
-              <th></th>
+              <th
+                className="btn text-danger"
+                onClick={() => setSortCallback(() => {})}
+              >
+                <b>Clear Sort</b>
+              </th>
               <th>Rs {total}</th>
             </tr>
           </tbody>

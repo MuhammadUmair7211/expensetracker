@@ -3,8 +3,11 @@ import "./App.css";
 import Table from "./components/Table";
 import Form from "./components/Form";
 import expenseData from "./expenseData";
+import { useLocalStorage } from "./components/useLocalStorage";
 function App() {
   const [expenses, setExpenses] = useState(expenseData);
+  const [localData, setLocalData] = useLocalStorage("myNum", [1, 2, 3, 4]);
+  console.log(localData);
   return (
     <>
       <div className="container mt-5">

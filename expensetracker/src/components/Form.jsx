@@ -19,13 +19,6 @@ const Form = ({ setExpenses }) => {
       { ...expense, id: crypto.randomUUID() },
     ]);
 
-    // setTitle("");
-    // setCategory("");
-    // setAmount("");
-    // const expense = { ...getFormData(e.target), id: crypto.randomUUID() };
-    // setExpenses((prevState) => [...prevState, expense]);
-    // e.target.reset();
-
     setExpense({
       title: "",
       category: "",
@@ -47,14 +40,6 @@ const Form = ({ setExpenses }) => {
     setErrors(errorsData);
     return errorsData;
   };
-  // const getFormData = (form) => {
-  //   const formData = new FormData(form);
-  //   let data = {};
-  //   for (const [key, value] of formData.entries()) {
-  //     data[key] = value;
-  //   }
-  //   return data;
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
